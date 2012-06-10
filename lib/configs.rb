@@ -1,20 +1,18 @@
 require "configs/version"
+require "configs/railtie" if defined? Rails
 
 module Configs
   class NotFound < StandardError; end
 
   class << self
 
-    # Where the wild .yml live
-    attr_writer :config_dir
-    def config_dir
-      @config_dir ||= Rails.root.join('config')
-    end
+    # Where the wild .yml live.
+    # In a Rails app, this is Rails.root.join('config')
+    attr_accessor :config_dir
 
-    attr_writer :environment
-    def environment
-      @environment ||= Rails.env
-    end
+    # The name of our environment.
+    # In a Rails app, this is Rails.env
+    attr_accessor :environment
 
     # will find (and memoize) the yml config file with this name
     #
