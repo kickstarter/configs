@@ -1,6 +1,13 @@
 # Configs
 
-TODO: Write a gem description
+Loads and manages config/*.yml files.
+
+Searches through a few locations to find the right environment config:
+
+1. config/$name/$env.yml
+2. config/$name.yml (with $env key)
+3. config/$name/default.yml
+3. config/$name.yml (with 'default' key)
 
 ## Installation
 
@@ -18,7 +25,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+If you have a `config/foo.yml`, then anywhere you need to read the file
+you can use `Configs[:foo]` as a hash.
+
+Example:
+
+    # config/foo.yml
+    development:
+      hello: world
+
+    # Elsewhere (even in a config/initializer)
+    Configs[:foo][:hello]
+    => 'world'
 
 ## Contributing
 
