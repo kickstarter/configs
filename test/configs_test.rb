@@ -39,11 +39,13 @@ class ConfigsTest < Configs::TestCase
   protected
 
   def with_config(path, contents, &block)
-    path = Rails.root.join('config', path).to_s
-    FileUtils.mkdir_p(File.dirname(path))
-    File.open(path, 'w') { |f| f << contents.to_yaml }
-    yield
-  ensure
-    File.delete(path)
+    path = Configs.config_dir.join(path).to_s
+    begin
+      FileUtils.mkdir_p(File.dirname(path))
+      File.open(path, 'w') { |f| f << contents.to_yaml }
+      yield
+    ensure
+      File.delete(path)
+    end
   end
 end

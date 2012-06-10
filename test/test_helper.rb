@@ -13,14 +13,5 @@ class Configs::TestCase < Test::Unit::TestCase
   end
 end
 
-class Rails
-  class << self
-    def root
-      @_root ||= Pathname.new(File.dirname(__FILE__))
-    end
-
-    def env
-      'test'
-    end
-  end
-end
+Configs.config_dir = Pathname.new(File.dirname(__FILE__) + '/config')
+Configs.environment = 'test'

@@ -5,6 +5,17 @@ module Configs
 
   class << self
 
+    # Where the wild .yml live
+    attr_writer :config_dir
+    def config_dir
+      @config_dir ||= Rails.root.join('config')
+    end
+
+    attr_writer :environment
+    def environment
+      @environment ||= Rails.env
+    end
+
     # will find (and memoize) the yml config file with this name
     #
     # cascades through a loading order to find the most specific yml file available (see Configs.load)
@@ -27,15 +38,15 @@ module Configs
     # 2) `config/$NAME.yml' with $ENV key
     # 3) `config/$NAME.yml' with 'default' key
     def load(name)
-      yml_file("config/#{name}/#{Rails.env}") ||
-        yml_file_with_key("config/#{name}", Rails.env) ||
-        yml_file("config/#{name}/default") ||
-        yml_file_with_key("config/#{name}", 'default') ||
+      yml_file("#{name}/#{environment}") ||
+        yml_file_with_key("#{name}", environment) ||
+        yml_file("#{name}/default") ||
+        yml_file_with_key("#{name}", 'default') ||
         raise(NotFound)
     end
 
     def yml_file(name)
-      path = Rails.root.join(name + '.yml')
+      path = config_dir.join(name + '.yml')
       YAML.load_file path if File.exists? path
     end
 
