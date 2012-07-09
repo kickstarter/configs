@@ -2,7 +2,11 @@ require "configs/version"
 require "configs/railtie" if defined? Rails
 
 module Configs
-  class NotFound < StandardError; end
+  class NotFound < StandardError;
+    def initialize(name, env)
+      super "could not find #{name} settings for :#{env} environment"
+    end
+  end
 
   class << self
 
@@ -40,7 +44,7 @@ module Configs
         yml_file_with_key("#{name}", environment) ||
         yml_file("#{name}/default") ||
         yml_file_with_key("#{name}", 'default') ||
-        raise(NotFound)
+        raise(NotFound.new(name, environment))
     end
 
     def yml_file(name)
