@@ -2,6 +2,8 @@ require "yaml"
 require "configs/version"
 require "configs/railtie" if defined? Rails
 
+require 'active_support/core_ext/hash/indifferent_access'
+
 module Configs
   class NotFound < StandardError;
     def initialize(name, env)
@@ -26,7 +28,7 @@ module Configs
     # if none can be found, it will raise an error
     def [](name)
       @_configs ||= {}
-      @_configs[name.to_sym] ||= load(name).symbolize_keys
+      @_configs[name.to_sym] ||= load(name)
     end
 
     def inspect
@@ -54,7 +56,7 @@ module Configs
 
     def yml_file(name)
       path = config_dir.join(name + '.yml')
-      YAML.load_file path if File.exists? path
+      YAML.load_file(path).with_indifferent_access if File.exists? path
     end
 
     def yml_file_with_key(path, key)

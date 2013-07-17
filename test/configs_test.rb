@@ -17,6 +17,12 @@ class ConfigsTest < Configs::TestCase
     end
   end
 
+  should "find config/foo.yml with :test key" do
+    with_config('foo.yml', :test => {:hello => 'world'}) do
+      assert_equal 'world', Configs[:foo][:hello]
+    end
+  end
+
   should "find config/foo/default.yml" do
     with_config('foo/default.yml', :hello => 'world') do
       assert_equal 'world', Configs[:foo][:hello]
@@ -29,13 +35,20 @@ class ConfigsTest < Configs::TestCase
     end
   end
 
+  should "find config/foo.yml with :default key" do
+    with_config('foo.yml', :default => {:hello => 'world'}) do
+      assert_equal 'world', Configs[:foo][:hello]
+    end
+  end
+
   should "not find missing config" do
     assert_raises(Configs::NotFound) { Configs[:unknown] }
   end
 
-  should "symbolize keys" do
-    with_config('foo.yml', 'test' => {'hello' => 'world'}) do
+  should "support indifferent hash access" do
+    with_config('foo.yml', 'test' => {:hello => 'world'}) do
       assert_equal 'world', Configs[:foo][:hello]
+      assert_equal 'world', Configs[:foo]['hello']
     end
   end
 
