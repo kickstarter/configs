@@ -1,3 +1,4 @@
+require "yaml"
 require "configs/version"
 require "configs/railtie" if defined? Rails
 
@@ -30,6 +31,10 @@ module Configs
 
     def inspect
       @_configs.inspect
+    end
+
+    def reload
+      @_configs = {}
     end
 
     protected
