@@ -52,6 +52,10 @@ class ConfigsTest < Configs::TestCase
     end
   end
 
+  should "interpolate ERB" do
+    assert_equal 3, Configs[:erb][:three]
+  end
+
   protected
 
   def with_config(path, contents, &block)
