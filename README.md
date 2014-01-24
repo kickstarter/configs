@@ -48,3 +48,9 @@ Example:
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## License
+
+Copyright 2014 Kickstarter, Inc
+
+Released under an [MIT License](http://opensource.org/licenses/MIT)

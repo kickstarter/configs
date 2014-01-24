@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "configs"
   gem.require_paths = ["lib"]
   gem.version       = Configs::VERSION
+  gem.license       = 'MIT'
 
   gem.add_dependency 'activesupport', '>3.0'
   gem.add_development_dependency "rake"
