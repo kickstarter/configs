@@ -1,4 +1,5 @@
 require "yaml"
+require "erb"
 require "configs/version"
 require "configs/railtie" if defined? Rails
 
@@ -56,7 +57,11 @@ module Configs
 
     def yml_file(name)
       path = config_dir.join(name + '.yml')
-      YAML.load_file(path).with_indifferent_access if File.exists? path
+      contents = ERB.new(File.read(path)).result(binding)
+      YAML.load(contents).with_indifferent_access
+    rescue Errno::ENOENT
+      # If file is missing, return nil
+      nil
     end
 
     def yml_file_with_key(path, key)

@@ -41,6 +41,12 @@ Example:
     Configs[:foo][:hello]
     => 'world'
 
+You can include ERB in the YAML files:
+
+    # config/foo.yml
+    development:
+      database_password: <%= ENV['DATABASE_PASSWORD'] %>
+
 ## Contributing
 
 1. Fork it
