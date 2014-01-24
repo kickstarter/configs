@@ -9,6 +9,9 @@ Searches through a few locations to find the right environment config:
 3. config/$name/default.yml
 3. config/$name.yml (with 'default' key)
 
+[![Build
+Status](https://travis-ci.org/kickstarter/configs.png?branch=master)](https://travis-ci.org/kickstarter/configs)
+
 ## Installation
 
 Add this line to your application's Gemfile:
