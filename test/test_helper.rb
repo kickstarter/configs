@@ -10,5 +10,3 @@ class Configs::TestCase < Minitest::Test
   end
 end
 
-Configs.config_dir = Pathname.new(File.dirname(__FILE__) + '/config')
-Configs.environment = 'test'

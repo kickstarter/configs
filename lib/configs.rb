@@ -16,11 +16,17 @@ module Configs
 
     # Where the wild .yml live.
     # In a Rails app, this is Rails.root.join('config')
-    attr_accessor :config_dir
+    attr_writer :config_dir
+    def config_dir
+      @config_dir ||= Pathname.new('./configs')
+    end
 
     # The name of our environment.
     # In a Rails app, this is Rails.env
-    attr_accessor :environment
+    attr_writer :environment
+    def environment
+      @environment ||= 'default'
+    end
 
     # will find (and memoize) the yml config file with this name
     #

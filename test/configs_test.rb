@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 
 class ConfigsTest < Configs::TestCase
   def setup
+    @_original_config_dir = Configs.config_dir
+    @_original_environment = Configs.environment
+
+    Configs.config_dir = Pathname.new(File.dirname(__FILE__) + '/config')
+    Configs.environment = 'test'
     Configs.reload
   end
 
@@ -54,6 +59,11 @@ class ConfigsTest < Configs::TestCase
 
   should "interpolate ERB" do
     assert_equal 3, Configs[:erb][:three]
+  end
+
+  def teardown
+    Configs.config_dir = @_original_config_dir
+    Configs.environment = @_original_environment
   end
 
   protected
