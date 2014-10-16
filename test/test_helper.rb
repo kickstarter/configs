@@ -2,11 +2,9 @@ require 'rubygems'
 require 'bundler'
 Bundler.require(:default, :test)
 
-require 'test/unit'
+require 'minitest/autorun'
 
-class Configs::TestCase < Test::Unit::TestCase
-  def default_test; end # quiet Test::Unit
-
+class Configs::TestCase < Minitest::Test
   def self.should(name, &block) # very simple syntax
     define_method("test_should_#{name.gsub(/[ -\/]/, '_').gsub(/[^a-z0-9_]/i, '_')}", &block)
   end
