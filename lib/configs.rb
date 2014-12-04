@@ -25,7 +25,7 @@ module Configs
     # In a Rails app, this is Rails.env
     attr_writer :environment
     def environment
-      @environment ||= 'default'
+      @environment ||= (ENV['RACK_ENV'] || 'default')
     end
 
     # will find (and memoize) the yml config file with this name
