@@ -1,6 +1,6 @@
 module Configs
   class Railtie < Rails::Railtie
-    initializer 'configs.rails_settings' do
+    config.before_configuration do
       Configs.config_dir = Rails.root.join('config')
       Configs.environment = Rails.env
     end
