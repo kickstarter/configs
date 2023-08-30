@@ -64,7 +64,7 @@ module Configs
     def yml_file(name)
       path = config_dir.join(name + '.yml')
       contents = ERB.new(File.read(path)).result(binding)
-      YAML.load(contents).with_indifferent_access
+      YAML.load(contents, aliases: true).with_indifferent_access
     rescue Errno::ENOENT
       # If file is missing, return nil
       nil
