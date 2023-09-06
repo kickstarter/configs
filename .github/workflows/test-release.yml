@@ -1,7 +1,10 @@
-name: test
+name: Test and Release
 on:
   pull_request:
   push:
+  release:
+    types:
+      - published
 jobs:
   test:
     name: >-
@@ -24,3 +27,13 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           activesupport-version: ${{ matrix.activesupport }}
+  push:
+    if: ${{ github.event.release.published }}
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/setup-rubygems
+        with:
+          rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
+      - run: bundle exec rake gem:push
