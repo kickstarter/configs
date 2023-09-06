@@ -1,5 +1,7 @@
 # Configs
 
+[![Test and Release](https://github.com/kickstarter/configs/actions/workflows/test-release.yml/badge.svg)](https://github.com/kickstarter/configs/actions/workflows/test-release.yml)
+
 Loads and manages config/*.yml files.
 
 Searches through a few locations to find the right environment config:
@@ -8,9 +10,6 @@ Searches through a few locations to find the right environment config:
 2. config/$name.yml (with $env key)
 3. config/$name/default.yml
 3. config/$name.yml (with 'default' key)
-
-[![Build
-Status](https://travis-ci.org/kickstarter/configs.png?branch=master)](https://travis-ci.org/kickstarter/configs)
 
 ## Installation
 

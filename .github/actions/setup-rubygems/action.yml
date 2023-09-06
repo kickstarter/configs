@@ -1,0 +1,25 @@
+name: Setup RubyGems
+description: Setup RubyGems credentials
+inputs:
+  ruby-version:
+    description: Ruby version
+    required: true
+  rubygems_api_key:
+    description: RubyGems API key
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby-version }}
+    - run: mkdir -p ~/.gem
+      shell: bash
+    - run: |
+        cat <<-YAML > ~/.gem/credentials
+        ---
+        :rubygems_api_key: ${{ inputs.rubygems_api_key }}
+        YAML
+      shell: bash
+    - run: chmod 0600 ~/.gem/credentials
+      shell: bash

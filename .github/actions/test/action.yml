@@ -1,0 +1,21 @@
+name: Test
+description: Run tests
+inputs:
+  ruby-version:
+    description: Ruby version
+    required: true
+  activesupport-version:
+    description: ActiveSupport version constraint
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby-version }}
+    - run: gem install activesupport -v "~> ${{ inputs.activesupport-version }}"
+      shell: bash
+    - run: bundle install
+      shell: bash
+    - run: bundle exec rake
+      shell: bash
