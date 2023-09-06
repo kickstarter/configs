@@ -28,7 +28,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           activesupport-version: ${{ matrix.activesupport }}
   push:
-    if: ${{ github.event.release.published }}
+    if: ${{ github.event.release }}
     needs:
       - test
     runs-on: ubuntu-latest
