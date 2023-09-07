@@ -1,18 +1,12 @@
 name: Setup RubyGems
 description: Setup RubyGems credentials
 inputs:
-  ruby-version:
-    description: Ruby version
-    required: true
   rubygems_api_key:
     description: RubyGems API key
     required: true
 runs:
   using: composite
   steps:
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ inputs.ruby-version }}
     - run: mkdir -p ~/.gem
       shell: bash
     - run: |
