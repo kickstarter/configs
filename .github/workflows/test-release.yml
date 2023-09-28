@@ -1,7 +1,14 @@
 name: Test and Release
 on:
-  pull_request:
   push:
+    paths: &paths
+      - lib/**
+      - test/**
+      - configs.gemspec
+      - Gemfile
+      - Rakefile
+  pull_request:
+    <<: *paths
   release:
     types:
       - published
