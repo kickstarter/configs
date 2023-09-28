@@ -6,9 +6,9 @@ on:
       - .github/**
       - lib/**
       - test/**
-      - configs.gemspec
       - Gemfile
       - Rakefile
+      - configs.gemspec
   release:
     types:
       - published
@@ -35,9 +35,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-      - uses: ./.github/actions/test
-        with:
-          activesupport-version: ${{ matrix.activesupport-version }}
+      - run: bundle add activesupport -v '${{ matrix.activesupport-version }}'
+      - run: bundle install
+      - run: bundle exec rake
   push:
     name: Publish Gem
     if: ${{ github.event.release }}
