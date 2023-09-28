@@ -2,6 +2,7 @@ name: Test and Release
 on:
   push:
     paths: &paths
+      - .github/**
       - lib/**
       - test/**
       - configs.gemspec
